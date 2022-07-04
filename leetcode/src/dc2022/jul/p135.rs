@@ -31,23 +31,34 @@ mod solution {
     use std::cmp::Ordering;
     #[allow(dead_code)]
     pub fn candy(ratings: Vec<i32>) -> i32 {
-        let mut dp = vec![i32::MAX; ratings.len()];
-        let mut indices = (0..ratings.len()).collect::<Vec<_>>();
-        indices.sort_by(|&i, &j| ratings[i].cmp(&ratings[j]));
-
-        for i in indices.into_iter() {
-            let left = ratings
-                .get(if i == 0 { 0 } else { i - 1 })
-                .unwrap_or(&i32::MAX);
-            let right = ratings.get(i + 1).unwrap_or(&i32::MAX);
-            match (ratings[i].cmp(left), ratings[i].cmp(right)) {
-                (Ordering::Greater, Ordering::Greater) => dp[i] = dp[i - 1].max(dp[i + 1]) + 1,
-                (Ordering::Greater, _) => dp[i] = dp[i - 1] + 1,
-                (_, Ordering::Greater) => dp[i] = dp[i + 1] + 1,
-                _ => dp[i] = 1,
+        let mut sum = 1;
+        let mut up = 0;
+        let mut down = 0;
+        let mut peak = 0;
+        for i in 1..ratings.len() {
+            match ratings[i].cmp(&ratings[i - 1]) {
+                Ordering::Less => {
+                    sum += down + 1;
+                    down += 1;
+                    if peak < down {
+                        sum += 1;
+                    }
+                    up = 0;
+                }
+                Ordering::Equal => {
+                    sum += 1;
+                    up = 0;
+                    down = 0;
+                    peak = 0;
+                }
+                Ordering::Greater => {
+                    up += 1;
+                    sum += up + 1;
+                    peak = up;
+                    down = 0;
+                }
             }
         }
-
-        dp.iter().sum()
+        sum
     }
 }
