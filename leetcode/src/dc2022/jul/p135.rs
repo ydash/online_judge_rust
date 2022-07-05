@@ -1,5 +1,6 @@
+#[cfg(test)]
 mod tests {
-    use super::solution::*;
+    use super::solution::candy;
 
     #[test]
     fn test_case_01() {
