@@ -68,14 +68,15 @@ mod solution {
     #[allow(dead_code)]
     pub fn min_cost(houses: Vec<i32>, cost: Vec<Vec<i32>>, m: i32, n: i32, target: i32) -> i32 {
         let (m, n, target) = (m as usize, n as usize, target as usize);
-        let mut dp = vec![vec![vec![None; target]; n]; m];
+        let mut prev_cache = vec![vec![None; target]; n];
+        let mut current_cache = vec![vec![None; target]; n];
 
         if houses[0] == 0 {
             for j in 0..n {
-                dp[0][j][0] = Some(cost[0][j]);
+                prev_cache[j][0] = Some(cost[0][j]);
             }
         } else {
-            dp[0][(houses[0] - 1) as usize][0] = Some(0);
+            prev_cache[(houses[0] - 1) as usize][0] = Some(0);
         }
         for i in 1..m {
             for prev_color in 0..n {
@@ -84,16 +85,19 @@ mod solution {
                         for k in 0..target {
                             let neighbors = k + if prev_color == current_color { 0 } else { 1 };
                             if neighbors < target {
-                                dp[i - 1][prev_color][k]
+                                prev_cache[prev_color][k]
                                     .map(|v| {
                                         (v + if houses[i] == 0 {
                                             cost[i][current_color]
                                         } else {
                                             0
                                         })
-                                        .min(dp[i][current_color][neighbors].unwrap_or(i32::MAX))
+                                        .min(
+                                            current_cache[current_color][neighbors]
+                                                .unwrap_or(i32::MAX),
+                                        )
                                     })
-                                    .map(|v| dp[i][current_color][neighbors] = Some(v));
+                                    .map(|v| current_cache[current_color][neighbors] = Some(v));
                             }
                         }
                     }
@@ -102,18 +106,28 @@ mod solution {
                         let current_color = (houses[i] - 1) as usize;
                         let neighbors = k + if prev_color == current_color { 0 } else { 1 };
                         if neighbors < target {
-                            dp[i - 1][prev_color][k]
-                                .map(|v| v.min(dp[i][current_color][neighbors].unwrap_or(i32::MAX)))
-                                .map(|v| dp[i][current_color][neighbors] = Some(v));
+                            prev_cache[prev_color][k]
+                                .map(|v| {
+                                    v.min(
+                                        current_cache[current_color][neighbors].unwrap_or(i32::MAX),
+                                    )
+                                })
+                                .map(|v| current_cache[current_color][neighbors] = Some(v));
                         }
                     }
+                }
+            }
+            for j in 0..n {
+                for k in 0..target {
+                    prev_cache[j][k] = current_cache[j][k];
+                    current_cache[j][k] = None;
                 }
             }
         }
         let mut result = None;
         for j in 0..n {
-            if dp[m - 1][j][target - 1].is_some() {
-                dp[m - 1][j][target - 1].map(|v| result = Some(result.unwrap_or(i32::MAX).min(v)));
+            if prev_cache[j][target - 1].is_some() {
+                prev_cache[j][target - 1].map(|v| result = Some(result.unwrap_or(i32::MAX).min(v)));
             }
         }
         result.unwrap_or(-1)
