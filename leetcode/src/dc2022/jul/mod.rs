@@ -6,4 +6,5 @@ mod p1696;
 mod p1710;
 mod p376;
 mod p509;
+mod p746;
 mod p97;
