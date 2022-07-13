@@ -1,5 +1,7 @@
 use std::{cell::RefCell, collections::VecDeque, rc::Rc};
 
+use crate::util::TreeNode;
+
 // 199. Binary Tree Right Side View
 #[allow(dead_code)]
 pub struct Solution {}
@@ -32,29 +34,13 @@ impl Solution {
     }
 }
 
-#[derive(Debug, PartialEq, Eq)]
-pub struct TreeNode {
-    pub val: i32,
-    pub left: Option<Rc<RefCell<TreeNode>>>,
-    pub right: Option<Rc<RefCell<TreeNode>>>,
-}
-
-impl TreeNode {
-    #[inline]
-    pub fn new(val: i32) -> Self {
-        TreeNode {
-            val,
-            left: None,
-            right: None,
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use std::{cell::RefCell, rc::Rc};
 
-    use super::{Solution, TreeNode};
+    use crate::util::TreeNode;
+
+    use super::Solution;
 
     #[test]
     fn test_case_01() {
