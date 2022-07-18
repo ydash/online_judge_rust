@@ -1,49 +1,32 @@
+use std::collections::HashMap;
+
 // 1074. Number of Submatrices That Sum to Target
 struct Solution {}
 impl Solution {
     #[allow(dead_code)]
-    pub fn num_submatrix_sum_target(matrix: Vec<Vec<i32>>, target: i32) -> i32 {
+    pub fn num_submatrix_sum_target(mut matrix: Vec<Vec<i32>>, target: i32) -> i32 {
         let m = matrix.len();
         let n = matrix[0].len();
-        let mut dp = vec![vec![0; n]; m];
         for i in 0..m {
-            for j in 0..n {
-                dp[i][j] = matrix[i][j]
-                    + if i == 0 && j == 0 {
-                        0
-                    } else if i == 0 {
-                        dp[i][j - 1]
-                    } else if j == 0 {
-                        dp[i - 1][j]
-                    } else {
-                        dp[i][j - 1] + dp[i - 1][j] - dp[i - 1][j - 1]
-                    }
+            for j in 1..n {
+                matrix[i][j] += matrix[i][j - 1]
             }
         }
-        let mut count = 0;
-        for x2 in 0..m {
-            for y2 in 0..n {
-                for x1 in 0..=x2 {
-                    for y1 in 0..=y2 {
-                        let sum = dp[x2][y2]
-                            - if x1 > 0 && y1 > 0 {
-                                dp[x1 - 1][y2] + dp[x2][y1 - 1] - dp[x1 - 1][y1 - 1]
-                            } else if x1 > 0 {
-                                dp[x1 - 1][y2]
-                            } else if y1 > 0 {
-                                dp[x2][y1 - 1]
-                            } else {
-                                0
-                            };
-
-                        if sum == target {
-                            count += 1;
-                        }
-                    }
+        let mut result = 0;
+        let mut counter = HashMap::new();
+        for y1 in 0..n {
+            for y2 in y1..n {
+                counter.clear();
+                counter.insert(0, 1);
+                let mut current = 0;
+                for x in 0..m {
+                    current += matrix[x][y2] - if y1 > 0 { matrix[x][y1 - 1] } else { 0 };
+                    result += counter.get(&(current - target)).unwrap_or(&0);
+                    *counter.entry(current).or_insert(0) += 1;
                 }
             }
         }
-        count
+        result
     }
 }
 
