@@ -15,5 +15,6 @@ mod p509;
 mod p576;
 mod p629;
 mod p695;
+mod p729;
 mod p746;
 mod p97;
