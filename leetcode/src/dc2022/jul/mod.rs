@@ -11,6 +11,7 @@ mod p1710;
 mod p199;
 mod p240;
 mod p315;
+mod p34;
 mod p376;
 mod p473;
 mod p509;
