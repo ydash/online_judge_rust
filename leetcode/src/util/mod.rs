@@ -30,3 +30,7 @@ impl ListNode {
         ListNode { next: None, val }
     }
 }
+
+pub fn str_vec_2_string_vec(slice: Vec<&str>) -> Vec<String> {
+    slice.into_iter().map(|s| s.into()).collect()
+}
