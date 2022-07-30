@@ -36,11 +36,9 @@ impl Solution {
 
 #[cfg(test)]
 mod tests {
-    use super::Solution;
+    use crate::util::str_vec_2_string_vec;
 
-    fn str_vec_2_string_vec(slice: Vec<&str>) -> Vec<String> {
-        slice.into_iter().map(|s| s.into()).collect()
-    }
+    use super::Solution;
 
     #[test]
     fn test_case_01() {
