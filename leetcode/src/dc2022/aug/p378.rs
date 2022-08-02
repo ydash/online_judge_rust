@@ -1,45 +1,33 @@
 // 378. Kth Smallest Element in a Sorted Matrix
 
-use std::{cmp::Reverse, collections::BinaryHeap};
-
 struct Solution {}
 impl Solution {
     #[allow(dead_code)]
     pub fn kth_smallest(matrix: Vec<Vec<i32>>, k: i32) -> i32 {
-        let m = matrix.len();
-        let n = matrix[0].len();
-        let k = k as usize;
-        let mut pq = BinaryHeap::new();
-        for i in 0..k.min(m) {
-            pq.push(Reverse(Item {
-                val: matrix[i][0],
-                row: i,
-                col: 0,
-            }));
-        }
-        for _ in 1..k {
-            let Item { val: _, row, col } = pq.pop().unwrap().0;
-            if col + 1 < n {
-                pq.push(Reverse(Item {
-                    val: matrix[row][col + 1],
-                    row,
-                    col: col + 1,
-                }));
+        let n = matrix.len();
+        let mut left = matrix[0][0];
+        let mut right = matrix[n - 1][n - 1];
+        while left <= right {
+            let mid = (left + right) / 2;
+            if Self::count_less_than_equal(&matrix, mid) >= k {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
             }
         }
-        pq.pop().unwrap().0.val
+        left
     }
-}
 
-#[derive(PartialEq, PartialOrd, Eq, Debug)]
-struct Item {
-    val: i32,
-    row: usize,
-    col: usize,
-}
-impl Ord for Item {
-    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
-        self.val.cmp(&other.val)
+    fn count_less_than_equal(matrix: &Vec<Vec<i32>>, v: i32) -> i32 {
+        let mut j = matrix.len();
+        let mut count = 0;
+        for i in 0..matrix.len() {
+            while j >= 1 && v < matrix[i][j - 1] {
+                j -= 1;
+            }
+            count += j;
+        }
+        count as i32
     }
 }
 
