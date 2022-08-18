@@ -10,16 +10,24 @@ impl Solution {
         for &n in arr.iter() {
             *freq.entry(n).or_insert(0) += 1;
         }
-        let mut freq: Vec<_> = freq.values().collect();
-        freq.sort_by(|a, b| b.cmp(a));
+        let mut count = vec![0; arr.len() + 1];
+        for (_, &v) in freq.iter() {
+            count[v] += 1;
+        }
+        let mut result = 0;
         let mut removed = 0;
         let threashold = arr.len() / 2;
-        let mut i = 0;
+        let mut i = count.len() - 1;
         while removed < threashold {
-            removed += freq[i];
-            i += 1;
+            if count[i] > 0 {
+                removed += i;
+                count[i] -= 1;
+                result += 1;
+            } else {
+                i -= 1;
+            }
         }
-        i as i32
+        result as i32
     }
 }
 
