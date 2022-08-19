@@ -1,51 +1,34 @@
 // 659. Split Array into Consecutive Subsequences
 
-use std::{cmp::Ordering, collections::BinaryHeap};
+use std::collections::HashMap;
 
 struct Solution {}
 impl Solution {
     #[allow(dead_code)]
     pub fn is_possible(nums: Vec<i32>) -> bool {
-        let mut pq: BinaryHeap<Elem> = BinaryHeap::new();
-        pq.push(Elem { seq: vec![nums[0]] });
-        for &n in nums.iter().skip(1) {
-            while !pq.is_empty() && pq.peek().and_then(|elm| elm.seq.last()).unwrap() + 1 < n {
-                let elm = pq.pop().unwrap();
-                if elm.seq.len() < 3 {
-                    return false;
-                }
+        let mut freq: HashMap<i32, i32> = HashMap::new();
+        let mut count_of_seq_last: HashMap<i32, i32> = HashMap::new();
+        for &n in nums.iter() {
+            *freq.entry(n).or_insert(0) += 1;
+        }
+        for &n in nums.iter() {
+            if *freq.get(&n).unwrap_or(&0) == 0 {
+                continue;
             }
-            if !pq.is_empty() && pq.peek().and_then(|e| e.seq.last()).unwrap() + 1 == n {
-                let mut elm = pq.pop().unwrap();
-                elm.seq.push(n);
-                pq.push(elm);
+            *freq.get_mut(&n).unwrap() -= 1;
+            if *count_of_seq_last.get(&(n - 1)).unwrap_or(&0) > 0 {
+                *count_of_seq_last.entry(n - 1).or_insert(0) -= 1;
+                *count_of_seq_last.entry(n).or_insert(0) += 1;
+            } else if *freq.get(&(n + 1)).unwrap_or(&0) > 0 && *freq.get(&(n + 2)).unwrap_or(&0) > 0
+            {
+                *freq.entry(n + 1).or_insert(0) -= 1;
+                *freq.entry(n + 2).or_insert(0) -= 1;
+                *count_of_seq_last.entry(n + 2).or_insert(0) += 1;
             } else {
-                pq.push(Elem { seq: vec![n] });
+                return false;
             }
         }
-        pq.iter().all(|elm| elm.seq.len() >= 3)
-    }
-}
-
-#[derive(Debug, PartialEq, Eq)]
-struct Elem {
-    seq: Vec<i32>,
-}
-
-impl Ord for Elem {
-    fn cmp(&self, other: &Self) -> Ordering {
-        let v1 = self.seq.last().unwrap();
-        let v2 = other.seq.last().unwrap();
-        match v2.cmp(v1) {
-            Ordering::Equal => other.seq.len().cmp(&self.seq.len()),
-            other => other,
-        }
-    }
-}
-
-impl PartialOrd for Elem {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        Some(self.cmp(other))
+        true
     }
 }
 
