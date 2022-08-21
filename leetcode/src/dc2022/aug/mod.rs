@@ -17,4 +17,5 @@ mod p804;
 mod p823;
 mod p858;
 mod p871;
+mod p936;
 mod p98;
