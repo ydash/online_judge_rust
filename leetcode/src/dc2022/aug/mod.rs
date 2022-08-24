@@ -7,6 +7,7 @@ mod p234;
 mod p235;
 mod p30;
 mod p300;
+mod p326;
 mod p342;
 mod p377;
 mod p378;
