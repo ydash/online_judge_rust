@@ -20,6 +20,7 @@ mod p729;
 mod p804;
 mod p823;
 mod p858;
+mod p869;
 mod p871;
 mod p936;
 mod p98;
