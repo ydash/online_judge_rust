@@ -6,6 +6,7 @@ mod p1996;
 mod p2007;
 mod p336;
 mod p393;
+mod p42;
 mod p606;
 mod p637;
 mod p814;
