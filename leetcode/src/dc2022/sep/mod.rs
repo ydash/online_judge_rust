@@ -8,6 +8,7 @@ mod p336;
 mod p393;
 mod p42;
 mod p606;
+mod p609;
 mod p637;
 mod p814;
 mod p94;
