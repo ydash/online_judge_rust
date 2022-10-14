@@ -29,6 +29,17 @@ impl ListNode {
     pub fn new(val: i32) -> Self {
         ListNode { next: None, val }
     }
+
+    pub fn from(nums: Vec<i32>) -> Option<Box<Self>> {
+        let mut current = None;
+        for i in (0..nums.len()).rev() {
+            current = Some(Box::new(ListNode {
+                val: nums[i],
+                next: current,
+            }))
+        }
+        current
+    }
 }
 
 pub fn str_vec_2_string_vec(slice: Vec<&str>) -> Vec<String> {
