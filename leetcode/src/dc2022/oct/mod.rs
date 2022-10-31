@@ -23,6 +23,7 @@ mod p653;
 mod p692;
 mod p732;
 mod p76;
+mod p760;
 mod p835;
 mod p91;
 mod p976;
