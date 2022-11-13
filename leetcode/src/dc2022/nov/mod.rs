@@ -1,5 +1,6 @@
 mod p1047;
 mod p1323;
+mod p151;
 mod p1544;
 mod p1706;
 mod p212;
