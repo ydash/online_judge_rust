@@ -3,6 +3,7 @@ mod p1323;
 mod p151;
 mod p1544;
 mod p1706;
+mod p1926;
 mod p212;
 mod p2131;
 mod p222;
