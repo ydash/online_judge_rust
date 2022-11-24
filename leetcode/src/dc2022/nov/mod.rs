@@ -17,6 +17,7 @@ mod p345;
 mod p36;
 mod p433;
 mod p587;
+mod p79;
 mod p899;
 mod p901;
 mod p947;
