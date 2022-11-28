@@ -8,6 +8,7 @@ mod p1926;
 mod p212;
 mod p2131;
 mod p222;
+mod p2225;
 mod p223;
 mod p224;
 mod p26;
