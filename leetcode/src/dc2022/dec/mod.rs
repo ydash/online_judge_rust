@@ -4,3 +4,4 @@ mod p2256;
 mod p328;
 mod p451;
 mod p876;
+mod p938;
