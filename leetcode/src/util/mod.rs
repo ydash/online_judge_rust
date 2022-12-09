@@ -1,4 +1,4 @@
-use std::{cell::RefCell, rc::Rc};
+use std::{cell::RefCell, collections::VecDeque, rc::Rc};
 
 #[derive(Debug, PartialEq, Eq)]
 pub struct TreeNode {
@@ -14,6 +14,32 @@ impl TreeNode {
             val,
             left: None,
             right: None,
+        }
+    }
+
+    pub fn from(nums: Vec<Option<i32>>) -> Option<Rc<RefCell<Self>>> {
+        let mut nums = VecDeque::from(nums);
+        if let Some(root_v) = nums.pop_front().and_then(|it| it) {
+            let mut queue = VecDeque::new();
+            let root = Some(Rc::new(RefCell::new(Self::new(root_v))));
+            queue.push_back(root.clone());
+            while !nums.is_empty() {
+                let node = queue.pop_front().and_then(|n| n).unwrap();
+                let mut node_ref = node.borrow_mut();
+                nums.pop_front().and_then(|l| l).map(|lv| {
+                    let left = Some(Rc::new(RefCell::new(TreeNode::new(lv))));
+                    node_ref.left = left.clone();
+                    queue.push_back(left);
+                });
+                nums.pop_front().and_then(|r| r).map(|rv| {
+                    let right = Some(Rc::new(RefCell::new(TreeNode::new(rv))));
+                    node_ref.right = right.clone();
+                    queue.push_back(right);
+                });
+            }
+            root
+        } else {
+            None
         }
     }
 }
