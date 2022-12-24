@@ -14,6 +14,7 @@ mod p328;
 mod p451;
 mod p70;
 mod p739;
+mod p790;
 mod p834;
 mod p841;
 mod p872;
