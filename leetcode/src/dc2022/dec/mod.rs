@@ -13,6 +13,7 @@ mod p2389;
 mod p309;
 mod p328;
 mod p451;
+mod p55;
 mod p70;
 mod p739;
 mod p790;
