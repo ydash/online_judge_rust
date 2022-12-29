@@ -5,6 +5,7 @@ mod p1339;
 mod p150;
 mod p1657;
 mod p1704;
+mod p1834;
 mod p1962;
 mod p1971;
 mod p198;
