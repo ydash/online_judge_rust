@@ -17,19 +17,18 @@ impl Solution {
         let mut i = 0;
         let mut result = vec![];
         while i < tasks.len() || !available.is_empty() {
-            if available.is_empty() {
-                current_time = current_time.max(tasks[i].1);
-            }
             while tasks.get(i).map_or(false, |&(_idx, enq_time, _proc_time)| {
                 enq_time <= current_time
             }) {
                 available.push(Reverse((tasks[i].2, tasks[i].0)));
                 i += 1;
             }
-            available.pop().map(|Reverse((proc_time, idx))| {
+            if let Some(Reverse((proc_time, idx))) = available.pop() {
                 result.push(idx as i32);
                 current_time += proc_time;
-            });
+            } else {
+                current_time = tasks[i].1;
+            }
         }
         result
     }
