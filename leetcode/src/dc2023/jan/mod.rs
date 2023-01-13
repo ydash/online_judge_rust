@@ -6,6 +6,7 @@ mod p149;
 mod p1519;
 mod p1833;
 mod p2244;
+mod p2246;
 mod p290;
 mod p452;
 mod p520;
