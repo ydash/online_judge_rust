@@ -7,6 +7,7 @@ struct NumArray {
 }
 
 impl NumArray {
+    #[allow(dead_code)]
     fn new(nums: Vec<i32>) -> Self {
         let mut num_array = NumArray {
             nums: vec![0; nums.len()],
@@ -31,6 +32,7 @@ impl NumArray {
         }
     }
 
+    #[allow(dead_code)]
     fn sum_range(&self, left: i32, right: i32) -> i32 {
         fn sum(array: &Vec<i32>, mut i: i32) -> i32 {
             let mut acc = 0;

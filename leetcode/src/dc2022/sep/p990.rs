@@ -2,6 +2,7 @@
 
 struct Solution {}
 impl Solution {
+    #[allow(dead_code)]
     pub fn equations_possible(equations: Vec<String>) -> bool {
         let (eq, neq): (Vec<_>, Vec<_>) =
             equations.into_iter().partition(|s| s.as_bytes()[1] == b'=');

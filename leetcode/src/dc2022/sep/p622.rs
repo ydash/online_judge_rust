@@ -9,6 +9,7 @@ struct MyCircularQueue {
 }
 
 impl MyCircularQueue {
+    #[allow(dead_code)]
     fn new(k: i32) -> Self {
         let k = k as usize;
         MyCircularQueue {
@@ -20,6 +21,7 @@ impl MyCircularQueue {
         }
     }
 
+    #[allow(dead_code)]
     fn en_queue(&mut self, value: i32) -> bool {
         if self.is_full() {
             false
@@ -31,6 +33,7 @@ impl MyCircularQueue {
         }
     }
 
+    #[allow(dead_code)]
     fn de_queue(&mut self) -> bool {
         if self.is_empty() {
             false
@@ -41,6 +44,7 @@ impl MyCircularQueue {
         }
     }
 
+    #[allow(dead_code)]
     fn front(&self) -> i32 {
         if self.is_empty() {
             -1
@@ -49,6 +53,7 @@ impl MyCircularQueue {
         }
     }
 
+    #[allow(dead_code)]
     fn rear(&self) -> i32 {
         if self.is_empty() {
             -1
