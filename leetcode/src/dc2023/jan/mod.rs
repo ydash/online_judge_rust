@@ -1,4 +1,5 @@
 mod p100;
+mod p1061;
 mod p134;
 mod p144;
 mod p1443;
