@@ -16,5 +16,6 @@ mod p520;
 mod p57;
 mod p918;
 mod p926;
+mod p93;
 mod p944;
 mod p974;
