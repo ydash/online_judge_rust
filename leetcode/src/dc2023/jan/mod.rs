@@ -13,6 +13,7 @@ mod p2359;
 mod p2421;
 mod p290;
 mod p452;
+mod p472;
 mod p491;
 mod p520;
 mod p57;
