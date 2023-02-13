@@ -2,6 +2,7 @@ mod p1071;
 mod p1129;
 mod p1162;
 mod p1470;
+mod p1523;
 mod p2306;
 mod p2477;
 mod p438;
