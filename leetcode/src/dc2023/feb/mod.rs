@@ -8,6 +8,7 @@ mod p1523;
 mod p226;
 mod p2306;
 mod p2477;
+mod p35;
 mod p438;
 mod p45;
 mod p567;
