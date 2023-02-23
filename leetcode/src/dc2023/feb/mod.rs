@@ -12,6 +12,7 @@ mod p2477;
 mod p35;
 mod p438;
 mod p45;
+mod p502;
 mod p540;
 mod p567;
 mod p6;
