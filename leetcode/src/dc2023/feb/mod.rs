@@ -19,6 +19,7 @@ mod p540;
 mod p567;
 mod p6;
 mod p67;
+mod p72;
 mod p783;
 mod p904;
 mod p953;
