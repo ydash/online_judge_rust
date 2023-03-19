@@ -6,6 +6,7 @@ mod p1345;
 mod p1472;
 mod p1539;
 mod p208;
+mod p211;
 mod p2187;
 mod p23;
 mod p2444;
