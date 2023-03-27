@@ -19,6 +19,7 @@ mod p2492;
 mod p28;
 mod p443;
 mod p605;
+mod p64;
 mod p875;
 mod p912;
 mod p958;
