@@ -23,3 +23,4 @@ mod p64;
 mod p875;
 mod p912;
 mod p958;
+mod p983;
