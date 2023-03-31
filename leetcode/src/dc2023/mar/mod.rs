@@ -5,6 +5,7 @@ mod p129;
 mod p1319;
 mod p1345;
 mod p1402;
+mod p1444;
 mod p1466;
 mod p1472;
 mod p1539;
