@@ -7,7 +7,6 @@ impl Solution {
         if k < 2 {
             let bytes = s
                 .as_bytes()
-                .clone()
                 .to_owned()
                 .into_iter()
                 .collect::<Vec<_>>();

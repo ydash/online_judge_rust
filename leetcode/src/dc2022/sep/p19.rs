@@ -16,7 +16,7 @@ impl Solution {
             fast = fast.and_then(|node| node.next);
             slow = slow.and_then(|node| node.next.as_mut());
         }
-        slow.map(|mut node| {
+        slow.map(|node| {
             let next = node.next.take();
             node.next = next.and_then(|next| next.next);
         });
